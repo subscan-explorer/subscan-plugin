@@ -27,16 +27,18 @@ type Option struct {
 // DB interface
 // Every query can be found here https://gorm.io/docs/
 type DB interface {
-	// Can query database all tables data
+	// GetDbInstance Get db instance, default is *gorm.DB
+	GetDbInstance() any
+
+	// FindBy Can query database all tables data
 	// Query ** no prefix ** table default, option PluginPrefix can specify other plugin model
 	FindBy(record interface{}, query interface{}, option *Option) (int, bool)
 
-	// Only can exec plugin relate tables
-	// Migration
+	// AutoMigration Only can exec plugin relate tables
 	AutoMigration(model interface{}) error
-	// Add column Index
+	// AddIndex Add column Index
 	AddIndex(model interface{}, indexName string, columns ...string) error
-	// Add column unique index
+	// AddUniqueIndex Add column unique index
 	AddUniqueIndex(model interface{}, indexName string, columns ...string) error
 
 	// Create one record

@@ -7,7 +7,6 @@ import (
 	"regexp"
 
 	"github.com/urfave/cli"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -94,9 +93,7 @@ func create() (err error) {
 				return
 			}
 		}
-		if strings.HasSuffix(name, ".tmpl") {
-			name = strings.TrimSuffix(name, ".tmpl")
-		}
+		name = strings.TrimSuffix(name, ".tmpl")
 		if err = write(filepath.Join(p.path, name), tmpl); err != nil {
 			return
 		}
@@ -121,7 +118,7 @@ func write(path, tpl string) (err error) {
 	if err != nil {
 		return
 	}
-	return ioutil.WriteFile(path, data, 0644)
+	return os.WriteFile(path, data, 0644)
 }
 
 func parse(s string) ([]byte, error) {
@@ -148,7 +145,7 @@ func modPath(p string) string {
 	dir := filepath.Dir(p)
 	for {
 		if _, err := os.Stat(filepath.Join(dir, "go.mod")); err == nil {
-			content, _ := ioutil.ReadFile(filepath.Join(dir, "go.mod"))
+			content, _ := os.ReadFile(filepath.Join(dir, "go.mod"))
 			mod := regexpReplace(`module\s+(?P<name>[\S]+)`, string(content), "$name")
 			name := strings.TrimPrefix(filepath.Dir(p), dir)
 			name = strings.TrimPrefix(name, string(os.PathSeparator))

@@ -1,9 +1,8 @@
 package {{.Name}}
 
 import (
-    ui "github.com/itering/subscan-plugin"
-	"github.com/itering/subscan-plugin/storage"
-	"github.com/itering/subscan-plugin/router"
+	"github.com/subscan-explorer/subscan-plugin/storage"
+	"github.com/subscan-explorer/subscan-plugin/router"
     "{{.ModPath}}{{.Name}}/http"
     "{{.ModPath}}{{.Name}}/service"
 	"github.com/shopspring/decimal"
@@ -44,14 +43,26 @@ func (a *{{.ModClass}}) Version() string {
 	return "0.1"
 }
 
-func (a *{{.ModClass}}) UiConf() *ui.UiConfig {
-	return nil
-}
-
 func (a *{{.ModClass}}) SubscribeExtrinsic() []string{
     return nil
 }
 
 func (a *{{.ModClass}}) SubscribeEvent() []string{
+    return nil
+}
+
+func (a *{{.ModClass}}) Enable() bool{
+    return true
+}
+
+func (a *{{.ModClass}}) ConsumptionQueue() []string{
+    return nil
+}
+
+func (a *{{.ModClass}}) SetRedisPool(_ subscan_plugin.RedisPool) {
+
+}
+
+func (a *{{.ModClass}})ExecWorker(context.Context, string, string, interface{}) error {
     return nil
 }
