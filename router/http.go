@@ -9,4 +9,6 @@ type Http struct {
 
 	// Router response handle
 	Handle func(w http.ResponseWriter, r *http.Request) error
+
+	Method string
 }

@@ -55,4 +55,10 @@ type RedisPool interface {
 	GetCacheTtl(ctx context.Context, key string) int
 	// HmSetEx redis setex
 	HmSetEx(c context.Context, key string, value interface{}, ttl int) (err error)
+	// SISMEMBER redis sismember
+	SISMEMBER(c context.Context, key string, value interface{}) bool
+	// SAdd redis sadd
+	SAdd(c context.Context, key string, ttl int, value ...string) bool
+	// HINCRBY redis hincrby
+	HINCRBY(c context.Context, key string, field string, value int) (int, error)
 }

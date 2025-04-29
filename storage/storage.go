@@ -74,6 +74,7 @@ type Extrinsic struct {
 }
 
 type Event struct {
+	Id            uint  `json:"id"`
 	BlockNum      int    `json:"block_num"`
 	ExtrinsicIdx  int    `json:"extrinsic_idx"`
 	ModuleId      string `json:"module_id"`
