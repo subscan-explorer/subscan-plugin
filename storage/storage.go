@@ -3,6 +3,7 @@ package storage
 import (
 	"github.com/itering/substrate-api-rpc/websocket"
 	"github.com/shopspring/decimal"
+	"context"
 )
 
 type Dao interface {
@@ -47,6 +48,10 @@ type DB interface {
 	Update(model interface{}, query interface{}, attr map[string]interface{}) error
 	// Delete one or more record
 	Delete(model interface{}, query interface{}) error
+
+	GetBlocksByNums(c context.Context, blockNums []uint, columns string) (blocks []*Block)
+
+	GetCurrentBlockNum(c context.Context) (uint64, error)
 }
 
 type Block struct {
@@ -74,7 +79,7 @@ type Extrinsic struct {
 }
 
 type Event struct {
-	Id            uint  `json:"id"`
+	Id            uint   `json:"id"`
 	BlockNum      int    `json:"block_num"`
 	ExtrinsicIdx  int    `json:"extrinsic_idx"`
 	ModuleId      string `json:"module_id"`

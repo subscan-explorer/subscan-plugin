@@ -5,6 +5,7 @@ import (
 	"github.com/itering/subscan-plugin/router"
 	"github.com/itering/subscan-plugin/storage"
 	"github.com/shopspring/decimal"
+	"github.com/urfave/cli"
 )
 
 type Plugin interface {
@@ -46,6 +47,9 @@ type Plugin interface {
 
 	// ExecWorker exec a task when subscribe queue
 	ExecWorker(ctx context.Context, queue, class string, raw interface{}) error
+
+	// plugin common cli
+	Commands() []cli.Command
 }
 
 type RedisPool interface {
